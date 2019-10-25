@@ -13,7 +13,7 @@ class AjoutDeChampsPourLesUtilisateurs extends Migration
      */
     public function up()
     {
-        Schema::table('users', function($table) {
+        Schema::table('users', function(Blueprint $table) {
 //            $table->string('name', 50);
             $table->string('role', 50)->nullable();
         });
