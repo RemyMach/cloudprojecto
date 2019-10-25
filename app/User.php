@@ -21,6 +21,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
+     * ce qui ne s'affiche dans un json quand on fait un return d'un user
      *
      * @var array
      */
@@ -30,10 +31,21 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast to native types.
+     * conversion de la clé, l'attribut correspondant dans le type qu'il a en valeur
      *
      * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * renvoie tout les commentaire fait pas notre user
+     *
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }
