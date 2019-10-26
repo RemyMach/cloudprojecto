@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        //$this->middleware('admin')->only(['index']);
+        $this->middleware('user')->only(['updateProfile','updatePassword','show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::where('role','user')->get();
+
+        return view('users.index',compact('users'));
     }
 
     /**
@@ -35,7 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -46,7 +55,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $user = User::findOrFail(auth()->id());
+
+        return view('users.profile',compact("user"));
     }
 
     /**
@@ -57,7 +68,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+
     }
 
     /**
@@ -67,9 +78,27 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function updateProfile(Request $request, User $user)
     {
-        //
+        $attributes = request()->validate([
+            "name" => ["required","min:1"],
+            "email" => ["required","unique:users,email"],
+            "birthday" => ["required"]
+        ]);
+        $user->update($attributes);
+
+        return back();
+    }
+
+    public function updatePassword(Request $request, User $user)
+    {
+        $attributes = request()->validate([
+            'password' =>'required|confirmed|min:8'
+        ]);
+
+        $user->update($attributes);
+
+        return back();
     }
 
     /**
@@ -80,6 +109,15 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return back();
+    }
+
+    public function userToAdmin(User $user)
+    {
+        $user->update(['role' => 'admin']);
+
+        return view('/home');
     }
 }

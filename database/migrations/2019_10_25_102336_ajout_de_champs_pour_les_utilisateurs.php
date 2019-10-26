@@ -15,7 +15,7 @@ class AjoutDeChampsPourLesUtilisateurs extends Migration
     {
         Schema::table('users', function(Blueprint $table) {
 //            $table->string('name', 50);
-            $table->string('role', 50)->nullable();
+            $table->enum('role', ['user','admin'])->default('user');
         });
     }
 

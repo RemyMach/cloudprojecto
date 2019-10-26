@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct(){
+        $this->middleware('admin')->only(['index','destroy']);
+        $this->middleware('user')->only(['create','store']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,14 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::all();
+        $user = [];
+        foreach ($comments as $comment){
+            $userPostComment = User::findOrFail($comment->user_id);
+            $user[$comment->id]['name'] = $userPostComment->name;
+            $user[$comment->id]['email'] = $userPostComment->email;
+        }
+        return view('comments.index',["comments" => $comments,"user" => $user]);
     }
 
     /**
@@ -24,7 +36,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view('comments.create');
     }
 
     /**
@@ -33,9 +45,16 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $attributs = request()->validate([
+            "content" => ["required"]
+        ]);
+        $attributs['user_id'] = auth()->id();
+
+        Comment::create($attributs);
+
+        return view('home');
     }
 
     /**
