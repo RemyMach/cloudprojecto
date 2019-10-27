@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\File;
+use App\User;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
+    public function __construct(){
+        $this->middleware('admin')->only(['create','store','destroy']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,14 @@ class FileController extends Controller
     {
         $files = File::all();
 
-        return view('files.index',compact("files"));
+        $user = [];
+
+        foreach ($files as $file){
+            $adminPostFile = User::findOrFail($file->user_id);
+            $user[$file->id]['name'] = $adminPostFile->name;
+        }
+
+        return view('files.index',["files" => $files,"user" => $user]);
     }
 
     /**
@@ -37,19 +48,38 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
+        $attributs = request()->validate([
+            "description" => ["required","min:3"],
+            "title" => ["required","min:5","string"],
+        ]);
         // cache the file
-        $file = $request->file('photo');
+        $file = $request->file('file');
 
         // Size of file : $file->getClientSize();
 
+        $sizeFile = $file->getSize();
+
+        $typeFile = $file->getMimeType();
+
+        $name = str_replace(' ','_',$request->get('title'));
+
+
         // generate a new filename. getClientOriginalExtension() for the file extension
-        $filename = 'profile-photo-' . time() . '.' . $file->getClientOriginalExtension();
+        $nameFile = $name . time() . '.' . $file->getClientOriginalExtension();
 
         // save to storage/app/photos as the new $filename
-        $path = $file->storeAs('photos', $filename);
+        $path = $file->storeAs('file', $nameFile);
+
+        File::create([
+            "user_id"       => auth()->user()->id,
+            "name"          => $nameFile,
+            "type"          => $typeFile,
+            "size"          => $sizeFile,
+            "description"   => $request->get('description'),
+        ]);
 
 
-        return 'yes';
+        return redirect('files');
     }
 
     /**
@@ -94,6 +124,8 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        $file->delete();
+
+        return back();
     }
 }

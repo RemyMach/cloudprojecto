@@ -73,8 +73,9 @@ Route::delete('/admin/comment/{comment}','CommentController@destroy');
 
 Route::get('/file/create', 'FileController@create');
 
-
 Route::post('/upload','FileController@store');
+
+Route::delete('/admin/file/{file}','FileController@destroy');
 
 /**
  * Fin des routes pour l'admin

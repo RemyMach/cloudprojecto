@@ -3,6 +3,7 @@
 <style type="text/css">
  #delete:hover {
      background-color: red;
+     border: red;
  }
 </style>
 @if( !empty($comments[0]))
@@ -25,7 +26,7 @@
                             <td>{{$user[$comment->id]['email']}}</td>
                             <td>{{$comment->created_at}}</td>
                             <td>{{$comment->content}}</td>
-                            <td><form action="/admin/comment/{{ $comment->id }}" method="post" onsubmit="return confirmationDeleteUser()">
+                            <td><form action="/admin/comment/{{ $comment->id }}" method="post" onsubmit="return confirmationDeleteComment()">
                                     @method('DELETE')
                                     @csrf
                                     <button class="btn btn-secondary" id="delete">Delete</button>
@@ -36,5 +37,15 @@
             </table>
         </div>
     </div>
+    <script type="text/javascript">
+        function confirmationDeleteComment()
+        {
+            if(confirm("Push OK to delete the comment ")) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
 @endif
 

@@ -10,7 +10,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin')->only(['index']);
+        $this->middleware('admin')->only(['index','destroy','userToAdmin']);
         $this->middleware('user')->only(['updateProfile','updatePassword','show']);
     }
 

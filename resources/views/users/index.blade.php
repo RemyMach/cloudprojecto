@@ -3,6 +3,7 @@
 <style type="text/css">
     #delete:hover {
         background-color: red;
+        border: red;
     }
     #role:hover {
         background-color: #76b852;
@@ -59,7 +60,7 @@
             })
         });
         function confirmationUserToAdmin(){
-            if(confirm("Appuyer sur continuer pour donner des droits d'admin à l'uilisateur")) {
+            if(confirm("Push OK to give admin rights to the user")) {
                 return true;
             }else{
                 return false;
@@ -67,7 +68,7 @@
         }
         function confirmationDeleteUser()
         {
-            if(confirm("Appuyer sur continuer pour supprimer l'utilisateur")) {
+            if(confirm("Push OK to delete the user")) {
                 return true;
             }else{
                 return false;
