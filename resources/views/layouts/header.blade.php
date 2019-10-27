@@ -14,18 +14,20 @@
         }
     </style>
 </head>
-@php
-if(auth()->user()->role == 'user'){
-@endphp
-    @include('layouts.navbar.user')
-@php
-}elseif(auth()->user()->role == 'admin'){
-@endphp
-    @include('layouts.navbar.admin')
-@php
-}else{
-@endphp
+@guest
     @include('layouts.navbar.guest')
-@php
-}
-@endphp
+@else
+    @php
+        if(auth()->user()->role == 'admin'){
+    @endphp
+    @include('layouts.navbar.admin')
+    @php
+        }else{
+    @endphp
+    @include('layouts.navbar.user')
+    @php
+        }
+    @endphp
+@endauth
+
+
