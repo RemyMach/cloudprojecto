@@ -26,7 +26,7 @@ class FileController extends Controller
      */
     public function create()
     {
-        //
+        return view('files.upload');
     }
 
     /**
@@ -37,7 +37,19 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cache the file
+        $file = $request->file('photo');
+
+        // Size of file : $file->getClientSize();
+
+        // generate a new filename. getClientOriginalExtension() for the file extension
+        $filename = 'profile-photo-' . time() . '.' . $file->getClientOriginalExtension();
+
+        // save to storage/app/photos as the new $filename
+        $path = $file->storeAs('photos', $filename);
+
+
+        return 'yes';
     }
 
     /**
