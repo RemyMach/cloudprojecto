@@ -69,6 +69,8 @@ Route::delete('/admin/users/{user}','UserController@destroy');
 
 Route::get('/admin/comments','CommentController@index');
 
+Route::delete('/admin/comment/{comment}','CommentController@destroy');
+
 /**
  * Fin des routes pour l'admin
  */
@@ -88,8 +90,6 @@ Route::patch('/user/profile/password/{user}','UserController@updatePassword');
 Route::get('/user/comment/create','CommentController@create');
 
 Route::post('/user/comment','CommentController@store');
-
-Route::delete('/user/comment/{comment}','CommentController@destroy');
 
 /**
  * Fin des routes pour le User

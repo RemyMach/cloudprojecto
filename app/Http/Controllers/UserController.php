@@ -10,7 +10,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        //$this->middleware('admin')->only(['index']);
+        $this->middleware('admin')->only(['index']);
         $this->middleware('user')->only(['updateProfile','updatePassword','show']);
     }
 
@@ -55,7 +55,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user = User::findOrFail(auth()->id());
+        abort_if($user->id !== auth()->id(),403);
+
+        $user = User::findOrFail($user->id);
 
         return view('users.profile',compact("user"));
     }

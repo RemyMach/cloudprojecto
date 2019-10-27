@@ -1,5 +1,10 @@
 @include('layouts.header')
 <br>
+<style type="text/css">
+ #delete:hover {
+     background-color: red;
+ }
+</style>
 @if( !empty($comments[0]))
     <div class="col-md-10 offset-md-1">
         <div class="container">
@@ -20,7 +25,11 @@
                             <td>{{$user[$comment->id]['email']}}</td>
                             <td>{{$comment->created_at}}</td>
                             <td>{{$comment->content}}</td>
-                            <td><input type="submit" name="file_delete{{ $comment->id  }}" value="Delete" class="btn btn-primary"></td>
+                            <td><form action="/admin/comment/{{ $comment->id }}" method="post" onsubmit="return confirmationDeleteUser()">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-secondary" id="delete">Delete</button>
+                                </form></td>
                         </tr>
                     @endforeach
                 </tbody>

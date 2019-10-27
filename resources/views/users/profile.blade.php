@@ -5,6 +5,15 @@
         text-align: center;
         padding: 10px;
     }
+    #save {
+        background-color: #76b852;
+        border: none;
+    }
+    #save:hover {
+        color: #76b852;
+        background-color: #F2F2F2;
+        border: none;
+    }
     .password-container {
         margin-top: 20px;
     }
@@ -39,7 +48,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary offset-10">Save</button>
+            <button type="submit" class="btn btn-primary offset-10" id="save">Save</button>
         </form>
     </div>
 
@@ -63,7 +72,7 @@
                     <input type="password" class="form-control" name="password_confirmation" value="azertyuiop" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary offset-10">Save</button>
+            <button type="submit" class="btn btn-primary offset-10" id="save">Save</button>
 
         </form>
     </div>
