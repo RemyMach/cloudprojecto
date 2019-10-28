@@ -21,33 +21,33 @@
         <table class="table">
             <thead class="text-center">
             <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Size(bytes)</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Download</th>
+                <th style="width: 45px;">Name</th>
+                <th style="width: 45px;">Type</th>
+                <th style="width: 45px;">Size(bytes)</th>
+                <th style="width: 45px;">Date</th>
+                <th style="width: 45px;">Description</th>
+                <th style="width: 45px;">Download</th>
                 @if(auth()->user()->role == 'admin')
-                    <th>Delete</th>
+                    <th style="width: 45px;">Delete</th>
                 @endif
             </tr>
             </thead>
             <tbody class="text-center">
             @foreach($files as $file)
                 <tr>
-                    <td>{{$user[$file->id]['name']}}</td>
-                    <td>{{$file->type}}</td>
-                    <td>{{$file->size}}</td>
-                    <td>{{$file->created_at}}</td>
-                    <td>{{$file->description}}</td>
-                    <td>
+                    <td style="width: 2ch;">{{$file->name}}</td>
+                    <td style="width: 2ch;">{{$file->type}}</td>
+                    <td style="width: 45px;">{{$file->size}}</td>
+                    <td style="width: 45px;">{{$file->created_at}}</td>
+                    <td style="width: 45px;">{{$file->description}}</td>
+                    <td style="width: 45px;">
                         <form action="/upload/file/{{ $file->id }}" method="post">
                             @csrf
                             <button class="btn download">Download</button>
                         </form>
                     </td>
                     @if(auth()->user()->role == 'admin')
-                        <td>
+                        <td style="width: 45px;">
                             <form action="/admin/file/{{ $file->id }}" method="post" onsubmit="return confirmationDeleteFile()">
                                 @method('DELETE')
                                 @csrf
