@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class FileController extends Controller
 {
     public function __construct(){
+        $this->middleware('auth')->only('downloadFile');
         $this->middleware('admin')->only(['create','store','destroy']);
     }
     /**
@@ -80,6 +81,13 @@ class FileController extends Controller
 
 
         return redirect('files');
+    }
+
+    public function downloadFile(File $file){
+
+        $pathToFile = storage_path() .'/app/file/' . $file->name;
+
+        return response()->download($pathToFile);
     }
 
     /**

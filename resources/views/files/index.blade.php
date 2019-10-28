@@ -5,6 +5,14 @@
         background-color: red;
         border: red;
     }
+    .download {
+        background-color: #76b852;
+        color: #F2F2F2;
+    }
+    .download:hover {
+        background-color: #F2F2F2;
+        color: #76b852;
+    }
 </style>
 @if( !empty($files[0]))
 <div class="col-md-10 offset-md-1">
@@ -31,7 +39,12 @@
                     <td>{{$file->size}}</td>
                     <td>{{$file->created_at}}</td>
                     <td>{{$file->description}}</td>
-                    <td><input type="submit" name="file_download{{ $file->id  }}" value="Download" class="btn btn-primary"></td>
+                    <td>
+                        <form action="/upload/file/{{ $file->id }}" method="post">
+                            @csrf
+                            <button class="btn download">Download</button>
+                        </form>
+                    </td>
                     @if(auth()->user()->role == 'admin')
                         <td>
                             <form action="/admin/file/{{ $file->id }}" method="post" onsubmit="return confirmationDeleteFile()">

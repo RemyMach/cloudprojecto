@@ -52,6 +52,8 @@ Route::post('register','Auth\RegisterController@register');
 
 Route::get('/files','FileController@index');
 
+Route::post('/upload/file/{file}','FileController@downloadFile');
+
 /**
  *
  */
@@ -76,6 +78,7 @@ Route::get('/file/create', 'FileController@create');
 Route::post('/upload','FileController@store');
 
 Route::delete('/admin/file/{file}','FileController@destroy');
+
 
 /**
  * Fin des routes pour l'admin
