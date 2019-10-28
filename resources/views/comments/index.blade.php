@@ -8,6 +8,7 @@
 </style>
 @if( !empty($comments[0]))
     <div class="col-md-10 offset-md-1">
+        @include('layouts.success')
         <div class="container">
             <table class="table">
                 <thead class="text-center">

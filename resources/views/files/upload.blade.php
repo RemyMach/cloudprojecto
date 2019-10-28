@@ -11,11 +11,17 @@
     .title {
         margin: 10px;
     }
+    .error{
+
+    }
 </style>
 <div class="login-page">
     <div class="col-md-10 offset-md-1">
+        @include('layouts.success')
         <div class="container">
+
             <h1>Upload your File !</h1>
+            @include('layouts.errors')
             <div class="row">
                 <form action="/upload" enctype="multipart/form-data" method="POST">
                     @csrf

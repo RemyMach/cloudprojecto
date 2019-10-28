@@ -54,7 +54,7 @@ class CommentController extends Controller
 
         Comment::create($attributs);
 
-        return view('home');
+        return back()->with('success','Thank you your Comment has been recorded');;
     }
 
     /**
@@ -101,6 +101,6 @@ class CommentController extends Controller
     {
         $comment->delete();
 
-        return back();
+        return back()->with('success','The Comment has been deleted');;
     }
 }

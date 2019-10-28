@@ -16,6 +16,7 @@
 </style>
 @if( !empty($files[0]))
 <div class="col-md-10 offset-md-1">
+    @include('layouts.success')
     <div class="container">
         <table class="table">
             <thead class="text-center">
@@ -51,6 +52,10 @@
                                 @method('DELETE')
                                 @csrf
                                 <button class="btn btn-secondary" id="delete">Delete</button>
+                                <div class="notification is-danger">
+                                    <ul>
+                                    </ul>
+                                </div>
                             </form>
                         </td>
                     @endif

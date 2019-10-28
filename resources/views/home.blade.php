@@ -10,6 +10,7 @@
     }
 </style>
 <div class="col-md-10 offset-md-1">
+    @include('layouts.success')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">

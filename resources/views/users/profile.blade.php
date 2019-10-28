@@ -22,6 +22,8 @@
     }
 </style>
 <div class="col-md-10 offset-md-1">
+    @include('layouts.errors')
+    @include('layouts.success')
     <div class="container">
         <h3 id="password">Informations</h3>
         <form action="/user/profile/{{ $user->id }}" method="post">
@@ -44,7 +46,7 @@
             <div class="form-group row">
                 <label for="inputPassword" class="col-sm-5 col-form-label">Birthday</label>
                 <div class="col-sm-6">
-                    <input type="date" class="form-control" name="email" value="{{ $user->birthday }}" required>
+                    <input type="date" class="form-control" name="birthday" value="{{ $user->birthday }}" required>
                 </div>
             </div>
 
@@ -80,3 +82,4 @@
 
 </body>
 </html>
+

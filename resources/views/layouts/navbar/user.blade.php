@@ -12,6 +12,9 @@
                 <a class="nav-link" href="/files">View Files <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
+                <a class="nav-link" href="/user/comment/create">Send Feedback <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="/user/profile/{{ auth()->id() }}">Update Information <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">

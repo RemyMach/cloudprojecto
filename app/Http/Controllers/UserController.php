@@ -83,13 +83,21 @@ class UserController extends Controller
     public function updateProfile(Request $request, User $user)
     {
         $attributes = request()->validate([
-            "name" => ["required","min:1"],
-            "email" => ["required","unique:users,email"],
+            "name" => ["required","min:3"],
             "birthday" => ["required"]
         ]);
+
+        if(request('email') != $user->email){
+            $validationMail = request()->validate([
+                "email" => ["required","unique:users,email"]
+            ]);
+            $attributes = array_merge($attributes,$validationMail);
+        }
+
+
         $user->update($attributes);
 
-        return back();
+        return back()->with('success','The Profile has been updated');;
     }
 
     public function updatePassword(Request $request, User $user)
@@ -100,7 +108,7 @@ class UserController extends Controller
 
         $user->update($attributes);
 
-        return back();
+        return back()->with('success','The Password has been modified');;
     }
 
     /**
@@ -113,13 +121,13 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return back();
+        return back()->with('success','The User has been deleted');
     }
 
     public function userToAdmin(User $user)
     {
         $user->update(['role' => 'admin']);
 
-        return view('/home');
+        return back()->with('success','The User is now an Admin');
     }
 }

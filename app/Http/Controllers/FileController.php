@@ -51,7 +51,7 @@ class FileController extends Controller
     {
         $attributs = request()->validate([
             "description" => ["required","min:3"],
-            "title" => ["required","min:5","string"],
+            "title" => ["required","min:5","max:20","string"],
         ]);
         // cache the file
         $file = $request->file('file');
@@ -80,7 +80,7 @@ class FileController extends Controller
         ]);
 
 
-        return redirect('files');
+        return redirect('files')->with('success','The file has been upload successfully');
     }
 
     public function downloadFile(File $file){
@@ -134,6 +134,6 @@ class FileController extends Controller
     {
         $file->delete();
 
-        return back();
+        return back()->with('success','The file has been deleted');
     }
 }
