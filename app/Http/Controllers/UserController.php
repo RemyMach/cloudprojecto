@@ -108,7 +108,7 @@ class UserController extends Controller
 
         $user->update($attributes);
 
-        return back()->with('success','The Password has been modified');;
+        return back()->with('success','The Password has been modified');
     }
 
     /**

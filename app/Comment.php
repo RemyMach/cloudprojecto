@@ -11,7 +11,6 @@ class Comment extends Model
         "content"
     ];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      * renvoie le user ayant posté le commentaire et ses atributs
