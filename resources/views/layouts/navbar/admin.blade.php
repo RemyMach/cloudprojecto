@@ -18,6 +18,9 @@
                 <a class="nav-link" href="/admin/comments">View Feedbacks <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
+                <a class="nav-link" href="/admin/users">View Users <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

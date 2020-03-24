@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('role','user')->get();
-
+        dd($users);
         return view('users.index',compact('users'));
     }
 
@@ -55,6 +55,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        dd($user);
         abort_if($user->id !== auth()->id(),403);
 
         $user = User::findOrFail($user->id);
@@ -97,7 +98,7 @@ class UserController extends Controller
 
         $user->update($attributes);
 
-        return back()->with('success','The Profile has been updated');;
+        return back()->with('success','The Profile has been updated');
     }
 
     public function updatePassword(Request $request, User $user)
